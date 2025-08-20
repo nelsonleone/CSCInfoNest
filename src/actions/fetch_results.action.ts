@@ -117,7 +117,7 @@ export type FetchCurrentSessionResultsResponse = {
   error?: string;
 }
 
-const CURRENT_SESSION = "2025/2026";
+const CURRENT_SESSION = "2025-2026";
 
 export async function fetchCurrentSessionResults(): Promise<FetchCurrentSessionResultsResponse> {
     try {
@@ -166,10 +166,10 @@ function groupResultsByLevel(results: ResultItem[]): GroupedResult[] {
         
         if (levelResults.length > 0) {
             const firstSemester = levelResults.find(result => 
-                result.semester.toLowerCase() === 'first' || result.semester === 'FIRST'
+                result.semester.toLowerCase() === 'first'
             )
             const secondSemester = levelResults.find(result => 
-                result.semester.toLowerCase() === 'second' || result.semester === 'SECOND'
+                result.semester.toLowerCase() === 'second'
             )
 
             groupedResults.push({

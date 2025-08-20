@@ -14,12 +14,16 @@ import {
   Upload,
   Bell,
   MoreHorizontal,
-  ExternalLink,
   PieChart,
 } from 'lucide-react';
 import { XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell, Area, AreaChart, Pie } from 'recharts';
 import type { ActivityItem, ChartDataPoint, DashboardStats, LevelDistribution, QuickMetric } from '@/types';
 import { useRouter } from 'next/navigation';
+import QuickActionCard from './QuickActionCard';
+import ActivityItemComponent from './ActivityItem';
+import StatCard from './StatCard';
+import { createClient } from '@/utils/supabase/client';
+import toast from 'react-hot-toast';
 
 
 
@@ -29,86 +33,6 @@ export interface AdminDashboardProps {
   chartData: ChartDataPoint[];
   levelDistribution: LevelDistribution[];
   quickMetrics: QuickMetric[];
-}
-
-const StatCard: React.FC<{
-  title: string;
-  value: string | number;
-  icon: React.ElementType;
-  trend?: 'up' | 'down' | 'neutral';
-  trendValue?: string;
-  color: string;
-  subtitle?: string;
-}> = ({ title, value, icon: Icon, color, subtitle }) => (
-  <div className="group relative bg-white rounded-2xl shadow-sm border border-gray-100 p-6 hover:shadow-xl hover:shadow-gray-100/50 transition-all duration-300 hover:-translate-y-1 overflow-hidden">
-    <div className="relative">
-        <div className="flex items-start justify-between">
-            <div className="space-y-2">
-            <div className={`inline-flex items-center justify-center w-12 h-12 rounded-xl bg-gradient-to-br from-${color}-500 to-${color}-600 shadow-lg shadow-${color}-500/25`}>
-                <Icon className="w-6 h-6 text-white" />
-            </div>
-            <div>
-                <p className="text-sm font-medium text-gray-500 uppercase tracking-wide">{title}</p>
-                <p className="text-3xl font-bold text-gray-900 mt-1">{value}</p>
-                {subtitle && (
-                <p className="text-sm text-gray-600 mt-1">{subtitle}</p>
-                )}
-            </div>
-            </div>
-        </div>
-    </div>
-    </div>
-    );
-
-    const ActivityItem: React.FC<{ activity: ActivityItem }> = ({ activity }) => {
-    const getIcon = (type: string) => {
-        const iconClass = "w-4 h-4";
-        switch (type) {
-        case 'event': return <Calendar className={`${iconClass} text-blue-500`} />;
-        case 'result': return <FileText className={`${iconClass} text-green-500`} />;
-        case 'announcement': return <AlertCircle className={`${iconClass} text-amber-500`} />;
-        case 'timetable': return <Clock className={`${iconClass} text-purple-500`} />;
-        default: return <Activity className={`${iconClass} text-gray-500`} />;
-        }
-    };
-
-    const getStatusColor = (status: string) => {
-        switch (status) {
-        case 'success': return 'bg-green-50 text-green-700 border-green-200';
-        case 'warning': return 'bg-amber-50 text-amber-700 border-amber-200';
-        case 'error': return 'bg-red-50 text-red-700 border-red-200';
-        case 'info': return 'bg-blue-50 text-blue-700 border-blue-200';
-        default: return 'bg-gray-50 text-gray-700 border-gray-200';
-        }
-    };
-
-    return (
-        <div className="group flex items-center space-x-4 p-4 hover:bg-gray-50 rounded-xl transition-colors duration-200">
-        <div className="flex-shrink-0 w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center group-hover:bg-white group-hover:shadow-sm transition-all duration-200">
-            {getIcon(activity.type)}
-        </div>
-        <div className="flex-1 min-w-0">
-            <div className="flex items-center space-x-2">
-            <p className="text-sm font-medium text-gray-900 truncate">{activity.title}</p>
-            <span className={`px-2 py-0.5 text-xs font-medium rounded-full border ${getStatusColor(activity.status)}`}>
-                {activity.action}
-            </span>
-            </div>
-            <div className="flex items-center space-x-2 mt-1">
-            <p className="text-xs text-gray-500">{activity.time}</p>
-            {activity.user && (
-                <>
-                <span className="text-xs text-gray-300">•</span>
-                <p className="text-xs text-gray-500">by {activity.user}</p>
-                </>
-            )}
-            </div>
-        </div>
-        <button className="opacity-0 group-hover:opacity-100 p-1 rounded-md hover:bg-gray-200 transition-all duration-200">
-            <MoreHorizontal className="w-4 h-4 text-gray-400" />
-        </button>
-        </div>
-    )
 }
 
 
@@ -122,9 +46,15 @@ function AdminDashboard({
 
     const router = useRouter()
 
+    const logout = async () => {
+        const supabase = await createClient()
+        await supabase.auth.signOut()
+
+        toast.success('Logged out successfully')
+    }
+
     return (
         <div className="min-h-screen pt-28 bg-gradient-to-br from-gray-50 via-white to-gray-50">
-        {/* Enhanced Header */}
         <div className="bg-white/80 backdrop-blur-xl border-b border-gray-200/60 sticky top-0 z-50">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="py-6">
@@ -181,211 +111,201 @@ function AdminDashboard({
         </div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
-            {/* Enhanced Stats Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <StatCard
-                title="Total Events"
-                value={stats.totalEvents}
-                icon={Calendar}
-                color="blue"
-                subtitle={`${stats.publishedEvents} published`}
-                trend="up"
-            />
-            <StatCard
-                title="Results Uploaded"
-                value={stats.totalResults}
-                icon={FileText}
-                color="green"
-                subtitle={`${stats.publishedResults} published`}
-                trend="up"
-            />
-            <StatCard
-                title="Announcements"
-                value={stats.totalAnnouncements}
-                icon={AlertCircle}
-                color="green"
-                subtitle={`${stats.publishedAnnouncements} published`}
-                trend="down"
-            />
-            <StatCard
-                title="Total Views"
-                value={stats.totalViews.toLocaleString()}
-                icon={Eye}
-                color="blue"
-                subtitle="This month"
-                trend="up"
-            />
-            </div>
-
-            {/* Quick Actions */}
-            <div className="space-y-4">
-            <div className="flex items-center justify-between">
-                <h2 className="text-xl font-bold text-gray-900">Quick Actions</h2>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                <QuickActionCard
-                    title="New Event"
-                    description="Create and schedule events"
-                    icon={Plus}
+                <StatCard
+                    title="Total Events"
+                    value={stats.totalEvents}
+                    icon={Calendar}
                     color="blue"
-                    onClick={() => {}}
+                    subtitle={`${stats.publishedEvents} published`}
+                    trend="up"
                 />
-                <QuickActionCard
-                    title="Upload Results"
-                    description="Add new academic results"
-                    icon={Upload}
+                <StatCard
+                    title="Results Uploaded"
+                    value={stats.totalResults}
+                    icon={FileText}
                     color="green"
-                    onClick={() => router.push('/dpt-admin/results/upload')}
+                    subtitle={`${stats.publishedResults} published`}
+                    trend="up"
                 />
-                <QuickActionCard
-                    title="Post Announcement"
-                    description="Share important notices"
+                <StatCard
+                    title="Announcements"
+                    value={stats.totalAnnouncements}
                     icon={AlertCircle}
+                    color="green"
+                    subtitle={`${stats.publishedAnnouncements} published`}
+                    trend="down"
+                />
+                <StatCard
+                    title="Total Views"
+                    value={stats.totalViews.toLocaleString()}
+                    icon={Eye}
                     color="blue"
-                    onClick={() => {}}
-                    badge={stats.pendingApprovals > 0 ? String(stats.pendingApprovals) : undefined}
+                    subtitle="This month"
+                    trend="up"
                 />
-                <QuickActionCard
-                    title="Manage Timetables"
-                    description="Upload exam/lecture schedules"
-                    icon={Clock}
-                    color="teal"
-                    onClick={() => {}}
-                />
-            </div>
             </div>
 
-            {/* Analytics Section */}
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            {/* Enhanced Chart */}
-            <div className="lg:col-span-2 bg-white rounded-2xl shadow-sm border border-gray-100 p-8">
-                <div className="flex items-center justify-between mb-8">
-                <div>
-                    <h2 className="text-xl font-bold text-gray-900">Content Upload Trends</h2>
-                    <p className="text-sm text-gray-500 mt-1">Monthly overview of content uploads</p>
+            <div className="space-y-4">
+                <div className="flex items-center justify-between">
+                    <h2 className="text-xl font-bold text-gray-900">Quick Actions</h2>
                 </div>
-                </div>
-                <ResponsiveContainer width="100%" height={350}>
-                <AreaChart data={chartData}>
-                    <defs>
-                    <linearGradient id="colorEvents" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="5%" stopColor="#3b82f6" stopOpacity={0.3}/>
-                        <stop offset="95%" stopColor="#3b82f6" stopOpacity={0}/>
-                    </linearGradient>
-                    <linearGradient id="colorResults" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="5%" stopColor="#10b981" stopOpacity={0.3}/>
-                        <stop offset="95%" stopColor="#10b981" stopOpacity={0}/>
-                    </linearGradient>
-                    <linearGradient id="colorAnnouncements" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="5%" stopColor="#f59e0b" stopOpacity={0.3}/>
-                        <stop offset="95%" stopColor="#f59e0b" stopOpacity={0}/>
-                    </linearGradient>
-                    </defs>
-                    <CartesianGrid strokeDasharray="3 3" stroke="#f3f4f6" />
-                    <XAxis dataKey="name" tick={{ fontSize: 12 }} tickLine={false} />
-                    <YAxis tick={{ fontSize: 12 }} tickLine={false} />
-                    <Tooltip 
-                    contentStyle={{ 
-                        backgroundColor: 'white', 
-                        border: 'none', 
-                        borderRadius: '12px', 
-                        boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1)' 
-                    }} 
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <QuickActionCard
+                        title="New Event"
+                        description="Create and schedule events"
+                        icon={Plus}
+                        color="blue"
+                        onClick={() => {}}
                     />
-                    <Area type="monotone" dataKey="events" stroke="#3b82f6" fillOpacity={1} fill="url(#colorEvents)" strokeWidth={3} />
-                    <Area type="monotone" dataKey="results" stroke="#10b981" fillOpacity={1} fill="url(#colorResults)" strokeWidth={3} />
-                    <Area type="monotone" dataKey="announcements" stroke="#f59e0b" fillOpacity={1} fill="url(#colorAnnouncements)" strokeWidth={3} />
-                </AreaChart>
-                </ResponsiveContainer>
+                    <QuickActionCard
+                        title="Upload Results"
+                        description="Add new academic results"
+                        icon={Upload}
+                        color="green"
+                        onClick={() => router.push('/dpt-admin/results/upload')}
+                    />
+                    <QuickActionCard
+                        title="Post Announcement"
+                        description="Share important notices"
+                        icon={AlertCircle}
+                        color="blue"
+                        onClick={() => {}}
+                        badge={stats.pendingApprovals > 0 ? String(stats.pendingApprovals) : undefined}
+                    />
+                    <QuickActionCard
+                        title="Manage Timetables"
+                        description="Upload exam/lecture schedules"
+                        icon={Clock}
+                        color="teal"
+                        onClick={() => {}}
+                    />
+                </div>
             </div>
 
-            {/* Enhanced Recent Activity */}
-            <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
-                <div className="flex items-center justify-between mb-6">
-                <div>
-                    <h2 className="text-lg font-bold text-gray-900">Recent Activity</h2>
-                    <p className="text-sm text-gray-500">Latest updates and changes</p>
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <div className="lg:col-span-2 bg-white rounded-2xl shadow-sm border border-gray-100 p-8">
+                    <div className="flex items-center justify-between mb-8">
+                    <div>
+                        <h2 className="text-xl font-bold text-gray-900">Content Upload Trends</h2>
+                        <p className="text-sm text-gray-500 mt-1">Monthly overview of content uploads</p>
+                    </div>
+                    </div>
+                    <ResponsiveContainer width="100%" height={350}>
+                    <AreaChart data={chartData}>
+                        <defs>
+                        <linearGradient id="colorEvents" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="5%" stopColor="#3b82f6" stopOpacity={0.3}/>
+                            <stop offset="95%" stopColor="#3b82f6" stopOpacity={0}/>
+                        </linearGradient>
+                        <linearGradient id="colorResults" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="5%" stopColor="#10b981" stopOpacity={0.3}/>
+                            <stop offset="95%" stopColor="#10b981" stopOpacity={0}/>
+                        </linearGradient>
+                        <linearGradient id="colorAnnouncements" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="5%" stopColor="#f59e0b" stopOpacity={0.3}/>
+                            <stop offset="95%" stopColor="#f59e0b" stopOpacity={0}/>
+                        </linearGradient>
+                        </defs>
+                        <CartesianGrid strokeDasharray="3 3" stroke="#f3f4f6" />
+                        <XAxis dataKey="name" tick={{ fontSize: 12 }} tickLine={false} />
+                        <YAxis tick={{ fontSize: 12 }} tickLine={false} />
+                        <Tooltip 
+                        contentStyle={{ 
+                            backgroundColor: 'white', 
+                            border: 'none', 
+                            borderRadius: '12px', 
+                            boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1)' 
+                        }} 
+                        />
+                        <Area type="monotone" dataKey="events" stroke="#3b82f6" fillOpacity={1} fill="url(#colorEvents)" strokeWidth={3} />
+                        <Area type="monotone" dataKey="results" stroke="#10b981" fillOpacity={1} fill="url(#colorResults)" strokeWidth={3} />
+                        <Area type="monotone" dataKey="announcements" stroke="#f59e0b" fillOpacity={1} fill="url(#colorAnnouncements)" strokeWidth={3} />
+                    </AreaChart>
+                    </ResponsiveContainer>
                 </div>
-                <button 
-                    onClick={() => {}}
-                    className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
-                >
-                    <MoreHorizontal className="w-4 h-4 text-gray-400" />
-                </button>
+
+                {/* Enhanced Recent Activity */}
+                <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+                    <div className="flex items-center justify-between mb-6">
+                    <div>
+                        <h2 className="text-lg font-bold text-gray-900">Recent Activity</h2>
+                        <p className="text-sm text-gray-500">Latest updates and changes</p>
+                    </div>
+                    <button 
+                        onClick={() => {}}
+                        className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+                    >
+                        <MoreHorizontal className="w-4 h-4 text-gray-400" />
+                    </button>
+                    </div>
+                    <div className="space-y-1 max-h-96 overflow-y-auto">
+                        {recentActivity.slice(0, 6).map(activity => (
+                            <ActivityItemComponent key={activity.id} activity={activity} />
+                        ))}
+                    </div>
                 </div>
-                <div className="space-y-1 max-h-96 overflow-y-auto">
-                {recentActivity.slice(0, 6).map(activity => (
-                    <ActivityItem key={activity.id} activity={activity} />
-                ))}
-                </div>
-                <button 
-                onClick={() => {}}
-                className="w-full mt-4 py-2 text-sm text-blue-600 hover:text-blue-700 font-medium hover:bg-blue-50 rounded-lg transition-colors"
-                >
-                View all activity
-                </button>
-            </div>
             </div>
 
             {/* Enhanced Level Distribution */}
             <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-8">
-            <div className="flex items-center justify-between mb-8">
-                <div>
-                <h2 className="text-xl font-bold text-gray-900">Results Distribution by Level</h2>
-                <p className="text-sm text-gray-500 mt-1">Academic content breakdown across levels</p>
+                <div className="flex items-center justify-between mb-8">
+                    <div>
+                    <h2 className="text-xl font-bold text-gray-900">Results Distribution by Level</h2>
+                    <p className="text-sm text-gray-500 mt-1">Academic content breakdown across levels</p>
+                    </div>
                 </div>
-            </div>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-                <ResponsiveContainer width="100%" height={300}>
-                <PieChart>
-                    <Pie
-                        data={levelDistribution}
-                        cx="50%"
-                        cy="50%"
-                        innerRadius={60}
-                        outerRadius={120}
-                        dataKey="value"
-                        stroke="none"
-                    >
-                        {levelDistribution.map((entry, index) => (
-                            <Cell key={`cell-${index}`} fill={entry.color} />
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                    <ResponsiveContainer width="100%" height={300}>
+                    <PieChart>
+                        <Pie
+                            data={levelDistribution}
+                            cx="50%"
+                            cy="50%"
+                            innerRadius={60}
+                            outerRadius={120}
+                            dataKey="value"
+                            stroke="none"
+                        >
+                            {levelDistribution.map((entry, index) => (
+                                <Cell key={`cell-${index}`} fill={entry.color} />
+                            ))}
+                            </Pie>
+                        <Tooltip 
+                        contentStyle={{ 
+                            backgroundColor: 'white', 
+                            border: 'none', 
+                            borderRadius: '12px', 
+                            boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1)' 
+                        }} 
+                        />
+                    </PieChart>
+                    </ResponsiveContainer>
+                    <div className="flex flex-col justify-center space-y-6">
+                        {levelDistribution.map((level) => (
+                            <div key={level.name} className="flex items-center justify-between p-4 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors">
+                                <div className="flex items-center space-x-4">
+                                    <div 
+                                    className="w-4 h-4 rounded-full shadow-sm" 
+                                    style={{ backgroundColor: level.color }}
+                                    ></div>
+                                    <span className="font-medium text-gray-900">{level.name}</span>
+                                </div>
+                                <div className="text-right">
+                                    <span className="text-lg font-bold text-gray-900">{level.value}</span>
+                                    <span className="text-sm text-gray-500 ml-2">({level.percentage}%)</span>
+                                </div>
+                            </div>
                         ))}
-                        </Pie>
-                    <Tooltip 
-                    contentStyle={{ 
-                        backgroundColor: 'white', 
-                        border: 'none', 
-                        borderRadius: '12px', 
-                        boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1)' 
-                    }} 
-                    />
-                </PieChart>
-                </ResponsiveContainer>
-                <div className="flex flex-col justify-center space-y-6">
-                    {levelDistribution.map((level) => (
-                        <div key={level.name} className="flex items-center justify-between p-4 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors">
-                            <div className="flex items-center space-x-4">
-                                <div 
-                                className="w-4 h-4 rounded-full shadow-sm" 
-                                style={{ backgroundColor: level.color }}
-                                ></div>
-                                <span className="font-medium text-gray-900">{level.name}</span>
-                            </div>
-                            <div className="text-right">
-                                <span className="text-lg font-bold text-gray-900">{level.value}</span>
-                                <span className="text-sm text-gray-500 ml-2">({level.percentage}%)</span>
-                            </div>
-                        </div>
-                    ))}
+                    </div>
                 </div>
-            </div>
             </div>
 
             <button
-                onClick={() => {/* handle logout */}}
+                onClick={logout}
                 className="flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-red-500 to-red-600 text-white rounded-xl shadow hover:shadow-lg hover:from-red-600 hover:to-red-700 transition-all duration-300 font-medium"
             >
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a2 2 0 01-2 2H7a2 2 0 01-2-2V7a2 2 0 012-2h6a2 2 0 012 2v1" />
                 </svg>
                 <span>Logout</span>

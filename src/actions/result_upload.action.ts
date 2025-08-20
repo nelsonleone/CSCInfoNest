@@ -208,10 +208,9 @@ export async function updateResult(
 
 export async function deleteResult(id: string): Promise<{ success: boolean; error?: string }> {
   try {
-    const supabase = await createClient();
+    const supabase = await createClient()
 
-    // Get the result to find the file path for deletion
-    const { data: result, error: fetchError } = await supabase
+    const { error: fetchError } = await supabase
       .from('results')
       .select('file_url')
       .eq('id', id)
@@ -237,13 +236,12 @@ export async function deleteResult(id: string): Promise<{ success: boolean; erro
       }
     }
 
-    revalidatePath('/admin/results');
-    revalidatePath('/results');
+    revalidatePath('/dpt-admin/results')
 
     return { success: true }
 
   } catch (error) {
-    console.error('Delete result error:', error);
+    console.error('Delete result error:', error)
     return {
       success: false,
       error: error instanceof Error ? error.message : 'An unexpected error occurred'

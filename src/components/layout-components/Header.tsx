@@ -45,21 +45,24 @@ export default function Header() {
         <div className="glob-px flex items-center justify-between w-full">
           <Logo src={LogoSrc} width={80} height={60} />
 
-        <nav className="hidden lg:flex space-x-8">
-          {navLinks.map((link, index) => (
-            <Link
-              key={index}
-              href={link.link}
-              className={`inline-block ${
-                pathName === link.link
-                  ? "text-primary-emeraldTeal border-b-2 border-primary-emeraldTeal"
-                  : "border-b-2 border-b-transparent hover:text-primary-emeraldTeal hover:border-b-2 hover:border-primary-emeraldTeal"
-              } font-medium transition-colors duration-200`}
-              >
-                {link.text}
-              </Link>
-          ))}
-        </nav>
+          {
+            !pathName.match("/dpt-admin") &&
+            <nav className="hidden lg:flex space-x-8">
+              {navLinks.map((link, index) => (
+                <Link
+                  key={index}
+                  href={link.link}
+                  className={`inline-block ${
+                    pathName === link.link
+                      ? "text-primary-emeraldTeal border-b-2 border-primary-emeraldTeal"
+                      : "border-b-2 border-b-transparent hover:text-primary-emeraldTeal hover:border-b-2 hover:border-primary-emeraldTeal"
+                  } font-medium transition-colors duration-200`}
+                  >
+                    {link.text}
+                  </Link>
+              ))}
+            </nav>
+          }
 
           <div className="lg:hidden">
             <Hamburger toggle={handleToggleMobileNav} />
@@ -67,11 +70,14 @@ export default function Header() {
         </div>
       </div>
 
-      <MobileNav
-        isOpen={isOpen}
-        onClose={handleToggleMobileNav}
-        navLinks={navLinks}
-      />
+      {
+        !pathName.match("/dpt-admin") &&
+        <MobileNav
+          isOpen={isOpen}
+          onClose={handleToggleMobileNav}
+          navLinks={navLinks}
+        />
+    }
 
       <div className="absolute top-24 left-0 right-0 z-40">
         <div className="glob-px">

@@ -19,7 +19,7 @@ const BackHomeButton: React.FC<BackHomeButtonProps> = ({
   const router = useRouter()
 
   const handleClick = () => {
-    router.push('/')
+    router.push('/dpt-admin')
   }
 
   const getVariantStyles = () => {

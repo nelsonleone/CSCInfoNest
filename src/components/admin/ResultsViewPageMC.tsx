@@ -16,11 +16,13 @@ import {
   X,
   Loader2,
   ChevronLeft,
-  ChevronRight
+  ChevronRight,
+  Trash2
 } from 'lucide-react';
 import { toast } from 'react-hot-toast';
 import { fetchResultsAction, ResultItem } from '@/actions/fetch_results.action';
 import { formatFileSize } from '@/utils/helperFns/formatFile';
+import { deleteResult } from '@/actions/result_upload.action';
 
 
 const getFileType = (fileName: string): 'pdf' | 'image' | 'other' => {
@@ -55,20 +57,36 @@ function ResultCard({
     }
 
     function getLevelColor(level: string) {
-        const colors: Record<string, string> = {
-            '100': 'bg-blue-50 text-blue-700 border-blue-200',
-            '200': 'bg-green-50 text-green-700 border-green-200',
-            '300': 'bg-purple-50 text-purple-700 border-purple-200',
-            '400': 'bg-orange-50 text-orange-700 border-orange-200',
-            '500': 'bg-red-50 text-red-700 border-red-200'
-        };
-        return colors[level] || 'bg-gray-50 text-gray-700 border-gray-200';
+      const colors: Record<string, string> = {
+          '100': 'bg-blue-50 text-blue-700 border-blue-200',
+          '200': 'bg-green-50 text-green-700 border-green-200',
+          '300': 'bg-purple-50 text-purple-700 border-purple-200',
+          '400': 'bg-orange-50 text-orange-700 border-orange-200',
+          '500': 'bg-red-50 text-red-700 border-red-200'
+      };
+      return colors[level] || 'bg-gray-50 text-gray-700 border-gray-200';
     }
 
     function getSemesterColor(semester: string) {
-        return semester === 'FIRST' 
+      return semester.toLowerCase() === 'first' 
             ? 'bg-indigo-50 text-indigo-700 border-indigo-200'
             : 'bg-teal-50 text-teal-700 border-teal-200';
+    }
+
+    const onDelete = async(result: ResultItem) => {
+      const confirmed = window.confirm("Are you sure you want to delete this result?");
+      if (!confirmed) return;
+
+      const { success, error } = await deleteResult(result.id)
+
+      if (!success){
+        toast.error(error || 'Failed to delete result')
+        return;
+      }
+
+      else {
+        toast.success('Result deleted successfully')
+      }
     }
 
     return (
@@ -113,25 +131,33 @@ function ResultCard({
 
             <div className="flex items-center justify-between pt-4 border-t border-gray-100">
                 <div className="flex items-center space-x-2 text-sm text-gray-600">
-                    <span className="font-medium">{result.file_name}</span>
-                    <span>•</span>
-                    <span>{formatFileSize(result.file_size)}</span>
+                  <span className="font-medium">{result.file_name}</span>
+                  <span>•</span>
+                  <span>{formatFileSize(result.file_size)}</span>
                 </div>
-                <div className="flex items-center space-x-2">
-                    <button
-                        onClick={() => onPreview(result)}
-                        className="p-2 bg-blue-50 text-blue-600 rounded-lg hover:bg-blue-100 transition-colors flex items-center space-x-1"
-                        title="Preview"
-                    >
-                        <Eye className="w-4 h-4" />
-                    </button>
-                    <button
-                        onClick={() => onDownload(result)}
-                        className="p-2 bg-gray-50 text-gray-600 rounded-lg hover:bg-gray-100 transition-colors flex items-center space-x-1"
-                        title="Download"
-                    >
-                        <Download className="w-4 h-4" />
-                    </button>
+                <div className="flex gap-y-4 flex-wrap items-center space-x-2">
+                  <button
+                    onClick={() => onPreview(result)}
+                    className="p-2 bg-blue-50 text-blue-600 rounded-lg hover:bg-blue-100 transition-colors flex items-center space-x-1"
+                    title="Preview"
+                  >
+                      <Eye className="w-4 h-4" />
+                  </button>
+                  <button
+                    onClick={() => onDownload(result)}
+                    className="p-2 bg-gray-50 text-gray-600 rounded-lg hover:bg-gray-100 transition-colors flex items-center space-x-1"
+                    title="Download"
+                  >
+                    <Download className="w-4 h-4" />
+                  </button>
+
+                  <button
+                    onClick={() => onDelete(result)}
+                    className="p-2 bg-red-50 text-red-600 rounded-lg hover:bg-red-100 transition-colors flex items-center space-x-1"
+                    title="Delete"
+                  >
+                      <Trash2 className="w-4 h-4" />
+                  </button>
                 </div>
             </div>
             <div className="flex items-center space-x-1 text-xs text-gray-500 pt-2">
