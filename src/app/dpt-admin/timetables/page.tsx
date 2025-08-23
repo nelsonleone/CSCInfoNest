@@ -1,5 +1,5 @@
-import { fetchCurrentSessionResults } from "@/actions/fetch_results.action";
-import PublicResultsPageMC from "@/components/admin/PublicResultsPageMC";
+import { fetchTimetablesAction } from "@/actions/fetch_timetable.action";
+import TimetablesViewPageMC from "@/components/admin/TimetableViewPageMC";
 import RetryButton from "@/components/custom-utils/RetryButton";
 import { AlertCircle } from "lucide-react";
 
@@ -12,7 +12,7 @@ function ErrorComponent({ error }:  { error: string }){
                 </div>
                 <h1 className="text-2xl font-bold text-gray-900 mb-2 pt-16">Fetch Error</h1>
                 <p className="text-gray-600 mb-6">
-                    Failed to load results. Please try again.
+                    Failed to load timetables. Please try again.
                 </p>
                 <div className="text-xs text-gray-400 mb-6 p-3 bg-gray-50 rounded-lg font-mono">
                     Error: {error}
@@ -25,13 +25,13 @@ function ErrorComponent({ error }:  { error: string }){
 
 
 export default async function Page() {
-    const { success, data, error } = await fetchCurrentSessionResults()
+    const { success, data, error, count } = await fetchTimetablesAction()
 
     if (!success && !data) {
         return <ErrorComponent error={error || 'Unknown error occurred'} />
     }
 
     return (
-        <PublicResultsPageMC results={data || []} />
+        <TimetablesViewPageMC initialCount={count || 0} initialData={data || []} />
     )
 }

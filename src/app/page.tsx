@@ -6,7 +6,7 @@ import Image from "next/image";
 export default function Home() {
   return (
     <main className="text-primary-baseColor1 min-h-screen">
-      <div className="bg-primary-navyBlue w-full flex justify-center items-center h-screen rounded-bl-[8em] relative">
+      <div className="bg-primary-navyBlue glob-px mt-20 w-full flex justify-center items-center h-screen rounded-bl-[4em] md:rounded-bl-[8em] relative">
         {/* Background SVG */}
         <div className="absolute bottom-0 left-0 w-[20em] h-[20em] bg-[url('/images/bg-pattern-intro-mobile.svg')] lg:bg-[url('/images/bg-pattern-intro-desktop.svg')] bg-no-repeat bg-contain opacity-20"></div>
         

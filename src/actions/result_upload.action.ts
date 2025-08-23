@@ -27,7 +27,6 @@ export async function createResult(formData: FormData): Promise<CreateResultResp
     const course_code = formData.get('course_code') as string;
     const is_published = formData.get('is_published') === 'true';
 
-    // Validate required fields
     if (!file || !title || !academic_session) {
       return {
         success: false,
@@ -35,7 +34,6 @@ export async function createResult(formData: FormData): Promise<CreateResultResp
       }
     }
 
-    // Validate file type and size
     const allowedTypes = ['application/pdf', 'image/jpeg', 'image/png', 'image/gif', 'image/webp'];
     if (!allowedTypes.includes(file.type)) {
       return {
@@ -44,6 +42,34 @@ export async function createResult(formData: FormData): Promise<CreateResultResp
       }
     }
 
+
+    let duplicateQuery = supabase
+      .from('results')
+      .select('id, title, course_code')
+      .eq('academic_session', academic_session)
+      .eq('semester', semester)
+      .eq('level', level);
+
+    const { data: existingResults, error: duplicateCheckError } = await duplicateQuery;
+
+    if (duplicateCheckError) {
+      console.error('Duplicate check error:', duplicateCheckError);
+      return {
+        success: false,
+        error: 'Failed to check for existing results'
+      }
+    }
+
+    if (existingResults && existingResults.length > 0) {
+      const duplicateResult = existingResults[0];
+      const courseInfo = duplicateResult.course_code ? ` for course ${duplicateResult.course_code}` : '';
+      return {
+        success: false,
+        error: `A result already exists for ${academic_session} - ${semester} semester, ${level} level${courseInfo}: "${duplicateResult.title}". Please update the existing one or use a different combination.`
+      }
+    }
+    
+
     if (file.size > 5 * 1024 * 1024) {
       return {
         success: false,
@@ -51,7 +77,6 @@ export async function createResult(formData: FormData): Promise<CreateResultResp
       }
     }
 
-    // Upload file to Supabase Storage
     const { url: file_url, size: file_size } = await uploadResultFile(
       file,
       academic_session,
@@ -59,7 +84,6 @@ export async function createResult(formData: FormData): Promise<CreateResultResp
       level
     )
 
-    // Create result record in database
     const { data: result, error: dbError } = await supabase
       .from('results')
       .insert({
@@ -118,7 +142,6 @@ export async function updateResult(
     const course_code = formData.get('course_code') as string;
     const is_published = formData.get('is_published') === 'true';
 
-    // Validate required fields
     if (!title || !academic_session) {
       return {
         success: false,
@@ -126,7 +149,33 @@ export async function updateResult(
       }
     }
 
-    // Prepare update data
+    let duplicateQuery = supabase
+      .from('results')
+      .select('id, title, course_code')
+      .eq('academic_session', academic_session)
+      .eq('semester', semester)
+      .eq('level', level)
+      .neq('id', id)
+
+    const { data: existingResults, error: duplicateCheckError } = await duplicateQuery;
+
+    if (duplicateCheckError) {
+      console.error('Duplicate check error:', duplicateCheckError);
+      return {
+        success: false,
+        error: 'Failed to check for existing results'
+      }
+    }
+
+    if (existingResults && existingResults.length > 0) {
+      const duplicateResult = existingResults[0];
+      const courseInfo = duplicateResult.course_code ? ` for course ${duplicateResult.course_code}` : '';
+      return {
+        success: false,
+        error: `Another result already exists for ${academic_session} - ${semester} semester, ${level} level${courseInfo}: "${duplicateResult.title}". Please use a different combination.`
+      }
+    }
+
     let updateData: any = {
       title,
       description: description || null,
@@ -138,9 +187,7 @@ export async function updateResult(
       updated_at: new Date().toISOString()
     }
 
-    // Handle file upload if new file is provided
     if (file && file.size > 0) {
-      // Validate file type and size
       const allowedTypes = ['application/pdf', 'image/jpeg', 'image/png', 'image/gif', 'image/webp'];
       if (!allowedTypes.includes(file.type)) {
         return {
@@ -149,14 +196,13 @@ export async function updateResult(
         }
       }
 
-      if (file.size > 10 * 1024 * 1024) { // 10MB limit
+      if (file.size > 5 * 1024 * 1024) {
         return {
           success: false,
           error: 'File size must be less than 10MB'
         }
       }
 
-      // Upload new file
       const { url: file_url, size: file_size } = await uploadResultFile(
         file,
         academic_session,

@@ -64,9 +64,13 @@ export default function Header() {
             </nav>
           }
 
-          <div className="lg:hidden">
-            <Hamburger toggle={handleToggleMobileNav} />
-          </div>
+          {
+            !pathName.match("/dpt-admin") &&
+            <div className="lg:hidden">
+              <Hamburger toggle={handleToggleMobileNav} />
+            </div>
+          }
+
         </div>
       </div>
 

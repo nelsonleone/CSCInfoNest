@@ -127,14 +127,16 @@ function AdminDashboard({
                     color="green"
                     subtitle={`${stats.publishedResults} published`}
                     trend="up"
+                    href='/dpt-admin/results/'
                 />
                 <StatCard
-                    title="Announcements"
-                    value={stats.totalAnnouncements}
+                    title="Timetables"
+                    value={stats.totalTimetables}
                     icon={AlertCircle}
                     color="green"
-                    subtitle={`${stats.publishedAnnouncements} published`}
+                    subtitle={`${stats.publishedTimetables} published`}
                     trend="down"
+                    href=''
                 />
                 <StatCard
                     title="Total Views"

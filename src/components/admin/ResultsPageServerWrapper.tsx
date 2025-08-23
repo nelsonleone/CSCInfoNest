@@ -24,10 +24,7 @@ function ErrorComponent({ error }: { error: string }) {
 }
 
 export default async function ResultsPageServerWrapper() {
-    const { success, data, count, error } = await fetchResultsAction({
-        is_published: true,
-        limit: 20
-    })
+    const { success, data, count, error } = await fetchResultsAction()
 
     if (!success || error) {
         return <ErrorComponent error={error || 'Unknown error occurred'} />

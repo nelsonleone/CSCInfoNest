@@ -138,7 +138,7 @@ function MobileNav({
                 <div className="absolute bottom-6 left-6 right-6">
                     <div className="p-4 bg-primary-emeraldTeal/10 rounded-lg border border-primary-emeraldTeal/20">
                     <p className="text-sm text-primary-baseColor1/80 text-center">
-                        Welcome to your student portal
+                        Welcome to your department portal
                     </p>
                     </div>
                 </div>
