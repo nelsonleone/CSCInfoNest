@@ -45,7 +45,7 @@ const BackHomeButton: React.FC<BackHomeButtonProps> = ({
   }
 
   return (
-    pathName === '/dpt-admin' ? null :
+    (pathName === '/dpt-admin' ||  pathName === '/dpt-admin/auth/login') ? null :
     <button
       onClick={handleClick}
       className={`

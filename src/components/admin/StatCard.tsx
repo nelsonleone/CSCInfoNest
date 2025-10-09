@@ -17,11 +17,11 @@ export default function StatCard({
     trendValue?: string;
     color: string;
     subtitle?: string;
-    href: string;
+    href?: string;
     linkText?: string;
 }) {
     return (
-        <Link href={href} className="block group">
+        <Link href={href || "/dpt-admin"} className="block group">
             <div className="relative bg-white rounded-2xl shadow-sm border border-gray-100 p-6 hover:shadow-xl hover:shadow-gray-100/50 transition-all duration-300 hover:-translate-y-1 overflow-hidden">
                 <div className="relative">
                     <div className="flex items-start justify-between">
@@ -37,11 +37,15 @@ export default function StatCard({
                                 )}
                             </div>
                         </div>
+
+                        {
+                            href &&
+                            <div className="flex items-center space-x-1 text-xs text-gray-400 group-hover:text-gray-600 transition-colors">
+                                <span className="font-medium">{linkText}</span>
+                                <ExternalLink className="w-3 h-3" />
+                            </div>
+                        }
                         
-                        <div className="flex items-center space-x-1 text-xs text-gray-400 group-hover:text-gray-600 transition-colors">
-                            <span className="font-medium">{linkText}</span>
-                            <ExternalLink className="w-3 h-3" />
-                        </div>
                     </div>
                     
                     <div className={`absolute -bottom-2 -right-2 w-20 h-20 bg-gradient-to-br from-${color}-500/10 to-${color}-600/10 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300`}></div>

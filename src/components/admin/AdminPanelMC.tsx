@@ -119,6 +119,7 @@ function AdminDashboard({
                     color="blue"
                     subtitle={`${stats.publishedEvents} published`}
                     trend="up"
+                    href='/dpt-admin/events'
                 />
                 <StatCard
                     title="Results Uploaded"
@@ -136,7 +137,7 @@ function AdminDashboard({
                     color="green"
                     subtitle={`${stats.publishedTimetables} published`}
                     trend="down"
-                    href=''
+                    href='/dpt-admin/timetables/'
                 />
                 <StatCard
                     title="Total Views"
@@ -158,7 +159,7 @@ function AdminDashboard({
                         description="Create and schedule events"
                         icon={Plus}
                         color="blue"
-                        onClick={() => {}}
+                        onClick={() => router.push('/dpt-admin/events/upload')}
                     />
                     <QuickActionCard
                         title="Upload Results"

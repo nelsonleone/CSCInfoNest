@@ -32,35 +32,25 @@ export async function updateSession(request: NextRequest) {
   // issues with users being randomly logged out.
 
   // IMPORTANT: DO NOT REMOVE auth.getUser()
-
   const {
     data: { user },
   } = await supabase.auth.getUser()
 
-  if (
-    !user &&
-    request.nextUrl.pathname.match('/dpt-admin') &&
-    !request.nextUrl.pathname.startsWith('/dpt-admin/auth') &&
-    !request.nextUrl.pathname.startsWith('/error')
-  ) {
-    // no user, potentially respond by redirecting the user to the login page
+  // Check if user is trying to access protected admin routes
+  const isAdminRoute = request.nextUrl.pathname.startsWith('/dpt-admin')
+  const isAuthRoute = request.nextUrl.pathname.startsWith('/dpt-admin/auth')
+  const isErrorRoute = request.nextUrl.pathname.startsWith('/error')
+
+  // Redirect to login if:
+  // - No user is logged in
+  // - Trying to access admin routes
+  // - NOT already on auth or error pages
+  if (!user && isAdminRoute && !isAuthRoute && !isErrorRoute) {
     const url = request.nextUrl.clone()
     url.pathname = '/dpt-admin/auth/login'
     return NextResponse.redirect(url)
   }
 
   // IMPORTANT: You *must* return the supabaseResponse object as it is.
-  // If you're creating a new response object with NextResponse.next() make sure to:
-  // 1. Pass the request in it, like so:
-  //    const myNewResponse = NextResponse.next({ request })
-  // 2. Copy over the cookies, like so:
-  //    myNewResponse.cookies.setAll(supabaseResponse.cookies.getAll())
-  // 3. Change the myNewResponse object to fit your needs, but avoid changing
-  //    the cookies!
-  // 4. Finally:
-  //    return myNewResponse
-  // If this is not done, you may be causing the browser and server to go out
-  // of sync and terminate the user's session prematurely!
-
   return supabaseResponse
 }
