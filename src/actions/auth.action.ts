@@ -2,46 +2,28 @@
 
 import { LoginAccountFormData } from '@/schema/login.schema'
 import { createClient } from '@/utils/supabase/server'
-import { redirect } from 'next/navigation'
 
-interface LoginResponse {
-  error?: {
-    message: string
-    code?: string
+export async function login(userData: LoginAccountFormData) {
+  const supabase = await createClient()
+
+  const data = {
+    email: userData.email,
+    password: userData.password,
   }
-  success: boolean
-}
 
-export async function login(userData: LoginAccountFormData): Promise<LoginResponse> {
-  try {
-    const supabase = await createClient()
+  const { error } = await supabase.auth.signInWithPassword(data)
 
-    const data = {
-      email: userData.email,
-      password: userData.password,
-    }
-
-    const { error } = await supabase.auth.signInWithPassword(data)
-
-    if (error) {
-      return {
-        error: {
-          message: error.message || 'Invalid email or password',
-          code: error.code
-        },
-        success: false
-      }
-    }
-
-    redirect('/dpt-admin')
-    
-  } catch (error) {
-    console.error('Login error:', error)
+  if (error) {
     return {
       error: {
-        message: 'An unexpected error occurred. Please try again.'
+        message: error.message || 'Invalid email or password',
+        code: error.code
       },
       success: false
     }
+  }
+
+  else {
+    return { success: true }
   }
 }
