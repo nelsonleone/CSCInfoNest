@@ -2,6 +2,7 @@
 
 import { createClient } from "@/utils/supabase/server";
 import type { Event } from "@/types";
+import { revalidatePath } from "next/cache";
 
 export type FetchEventsParams = {
   month?: string;
@@ -216,5 +217,83 @@ export async function getAvailableMonths(): Promise<{ success: boolean; data?: s
       success: false,
       error: error instanceof Error ? error.message : 'An unexpected error occurred'
     }
+  }
+}
+
+
+
+
+type DeleteEventResponse = {
+  success: boolean;
+  error?: string;
+}
+
+export async function deleteEventAction(eventId: string): Promise<DeleteEventResponse> {
+  try {
+    // Validate event ID
+    if (!eventId || typeof eventId !== 'string' || eventId.trim() === '') {
+      return {
+        success: false,
+        error: 'Invalid event ID provided'
+      };
+    }
+
+    const supabase = await createClient();
+
+    const { data: existingEvent, error: fetchError } = await supabase
+      .from('events')
+      .select('id, title')
+      .eq('id', eventId.trim())
+      .single();
+
+    if (fetchError) {
+      console.error('Fetch event error:', fetchError);
+      
+      if (fetchError.code === 'PGRST116') {
+        return {
+          success: false,
+          error: 'Event not found'
+        };
+      }
+      
+      return {
+        success: false,
+        error: `Failed to verify event: ${fetchError.message}`
+      };
+    }
+
+    if (!existingEvent) {
+      return {
+        success: false,
+        error: 'Event not found'
+      };
+    }
+
+    const { error: deleteError } = await supabase
+      .from('events')
+      .delete()
+      .eq('id', eventId.trim());
+
+    if (deleteError) {
+      console.error('Delete event error:', deleteError);
+      return {
+        success: false,
+        error: `Failed to delete event: ${deleteError.message}`
+      };
+    }
+
+    revalidatePath('/events');
+    revalidatePath('/dpt-admin/events');
+
+    return {
+      success: true
+    };
+    
+  } catch (error) {
+    console.error('Delete event error:', error);
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : 'An unexpected error occurred while deleting the event'
+    };
   }
 }

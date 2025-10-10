@@ -235,7 +235,7 @@ export async function updateResult(
     }
 
     // Revalidate relevant paths
-    revalidatePath('/admin/results');
+    revalidatePath('/dpt-admin/results');
     revalidatePath('/results');
 
     return {
@@ -318,7 +318,7 @@ export async function toggleResultPublishStatus(
         }
 
         // Revalidate relevant paths
-        revalidatePath('/admin/results');
+        revalidatePath('/dpt-admin/results');
         revalidatePath('/results');
 
         return { success: true }

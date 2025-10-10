@@ -140,11 +140,10 @@ function AdminDashboard({
                     href='/dpt-admin/timetables/'
                 />
                 <StatCard
-                    title="Total Views"
-                    value={stats.totalViews.toLocaleString()}
+                    title="Announcement Posted"
+                    value={stats.publishedAnnouncements.toLocaleString()}
                     icon={Eye}
                     color="blue"
-                    subtitle="This month"
                     trend="up"
                 />
             </div>
@@ -173,7 +172,7 @@ function AdminDashboard({
                         description="Share important notices"
                         icon={AlertCircle}
                         color="blue"
-                        onClick={() => {}}
+                        onClick={() => router.push('/dpt-admin/announcement/create')}
                         badge={stats.pendingApprovals > 0 ? String(stats.pendingApprovals) : undefined}
                     />
                     <QuickActionCard
@@ -181,7 +180,7 @@ function AdminDashboard({
                         description="Upload exam/lecture schedules"
                         icon={Clock}
                         color="teal"
-                        onClick={() => {}}
+                        onClick={() => router.push('/dpt-admin/timetables/upload')}
                     />
                 </div>
             </div>

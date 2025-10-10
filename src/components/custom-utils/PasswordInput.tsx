@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Icon } from "@iconify/react";
 import { UseFormRegister } from "react-hook-form";
 import { LoginAccountFormData } from "@/schema/login.schema";
