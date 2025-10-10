@@ -4,6 +4,7 @@ import { Calendar, MapPin, Clock, Share2, ArrowLeft } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { Event } from '@/types';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 
 export default function EventDetailsPage({ event }: { event: Event }) {
 
@@ -64,9 +65,11 @@ export default function EventDetailsPage({ event }: { event: Event }) {
           {/* Hero Image */}
           {event.image_urls && event.image_urls.length > 0 && (
             <div className="relative h-96 bg-[#333333]">
-              <img 
+              <Image 
                 src={event.image_urls[0]} 
                 alt={event.title}
+                width={800}
+                height={500}
                 className="w-full h-full object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
@@ -156,8 +159,10 @@ export default function EventDetailsPage({ event }: { event: Event }) {
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                   {event.image_urls.slice(1).map((url, index) => (
                     <div key={index} className="relative h-48 rounded-lg overflow-hidden group">
-                      <img 
+                      <Image 
                         src={url} 
+                        width={500}
+                        height={400}
                         alt={`${event.title} - Image ${index + 2}`}
                         className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
                       />

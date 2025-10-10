@@ -39,11 +39,6 @@ type GroupedResult = {
   second_semester?: ResultItem;
 };
 
-interface StudentResultsTableProps {
-  results: GroupedResult[];
-  currentSession: string;
-}
-
 
 const getFileIcon = (fileName: string) => {
   const fileType = getFileType(fileName);

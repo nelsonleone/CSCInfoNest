@@ -1,5 +1,5 @@
 import { ActivityItem as ActivityItemType } from "@/types";
-import { Activity, AlertCircle, Calendar, Clock, FileText, MoreHorizontal } from "lucide-react";
+import { Activity, AlertCircle, Calendar, Clock, FileText } from "lucide-react";
 
 export default function ActivityItem({ activity }: { activity: ActivityItemType }) {
     const getIcon = (type: string) => {

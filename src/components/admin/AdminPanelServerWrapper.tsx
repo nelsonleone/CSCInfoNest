@@ -59,18 +59,17 @@ export default async function AdminPanelServerWrapper(){
 
     const { success, data, error } = await getDashboardData()
 
-    if (!success && !data) {
-        return <ErrorComponent error={error!} />
+    if (!success || !data) {
+        return <ErrorComponent error={error || 'Unknown error occurred'} />
     }
-
 
     return (
         <AdminDashboard
-            stats={data?.stats!}
-            recentActivity={data?.recentActivity!}
-            chartData={data?.chartData!}
-            levelDistribution={data?.levelDistribution!}
-            quickMetrics={data?.quickMetrics!}
+            stats={data.stats}
+            recentActivity={data.recentActivity}
+            chartData={data.chartData}
+            levelDistribution={data.levelDistribution}
+            quickMetrics={data.quickMetrics}
         />
     )
 }

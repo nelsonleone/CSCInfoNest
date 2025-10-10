@@ -120,7 +120,7 @@ export type FetchCurrentSessionTimetablesResponse = {
   error?: string;
 }
 
-const CURRENT_SESSION = "2025-2026";
+const CURRENT_SESSION = "2024-2025";
 
 export async function fetchCurrentSessionTimetables(): Promise<FetchCurrentSessionTimetablesResponse> {
     try {

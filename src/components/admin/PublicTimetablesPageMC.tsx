@@ -10,12 +10,9 @@ import {
   Users,
   CalendarDays,
   GraduationCap,
-  BookOpen,
   FileText,
-  ChevronRight
 } from 'lucide-react';
 import { formatFileSize } from '@/utils/helperFns/formatFile';
-import Link from 'next/link';
 import { GroupedTimetable, TimetableItem } from '@/actions/fetch_timetable.action';
 
 interface PublicTimetablesPageMCProps {
@@ -149,7 +146,7 @@ function LevelSection({ groupedTimetable }: { groupedTimetable: GroupedTimetable
                         <h2 className="text-xl font-bold text-white">
                             {groupedTimetable.level} Level
                         </h2>
-                        <p className="text-white/80 text-sm">Academic Session 2025-2026</p>
+                        <p className="text-white/80 text-sm">Academic Session 2024-2025</p>
                     </div>
                 </div>
             </div>
@@ -248,7 +245,7 @@ export default function PublicTimetablesPageMC({ timetables }: PublicTimetablesP
                                         Current Session Timetables
                                     </h1>
                                     <p className="text-gray-600 font-medium md:text-lg">
-                                        Academic Session 2025-2026 Schedules
+                                        Academic Session 2024-2025 Schedules
                                     </p>
                                 </div>
                             </div>
@@ -299,7 +296,7 @@ export default function PublicTimetablesPageMC({ timetables }: PublicTimetablesP
                                     <span className="text-sm font-medium text-gray-700">Session</span>
                                 </div>
                                 <p className="text-lg font-bold text-gray-900 mt-1">
-                                    2025-26
+                                    2024-25
                                 </p>
                             </div>
                         </div>

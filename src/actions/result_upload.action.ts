@@ -43,7 +43,7 @@ export async function createResult(formData: FormData): Promise<CreateResultResp
     }
 
 
-    let duplicateQuery = supabase
+    const duplicateQuery = supabase
       .from('results')
       .select('id, title, course_code')
       .eq('academic_session', academic_session)
@@ -149,7 +149,7 @@ export async function updateResult(
       }
     }
 
-    let duplicateQuery = supabase
+    const duplicateQuery = supabase
       .from('results')
       .select('id, title, course_code')
       .eq('academic_session', academic_session)

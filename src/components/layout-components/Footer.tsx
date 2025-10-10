@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import Logo from "./Logo";
 import { usePathname } from "next/navigation";
+import Link from "next/link";
 
 export default function Footer() {
 
@@ -41,30 +42,30 @@ export default function Footer() {
                      
                      {/* Social Links */}
                      <div className="flex space-x-4">
-                        <a 
+                        <Link 
                            href="/" 
                            className="w-10 h-10 bg-primary-baseColor1/10 hover:bg-primary-emeraldTeal transition-all duration-300 rounded-full flex items-center justify-center group"
                         >
                            <Facebook className="w-5 h-5 text-primary-baseColor1 group-hover:text-white" />
-                        </a>
-                        <a 
+                        </Link>
+                        <Link 
                            href="/" 
                            className="w-10 h-10 bg-primary-baseColor1/10 hover:bg-primary-emeraldTeal transition-all duration-300 rounded-full flex items-center justify-center group"
                         >
                            <Twitter className="w-5 h-5 text-primary-baseColor1 group-hover:text-white" />
-                        </a>
-                        <a 
+                        </Link>
+                        <Link 
                            href="/" 
                            className="w-10 h-10 bg-primary-baseColor1/10 hover:bg-primary-emeraldTeal transition-all duration-300 rounded-full flex items-center justify-center group"
                         >
                            <Instagram className="w-5 h-5 text-primary-baseColor1 group-hover:text-white" />
-                        </a>
-                        <a 
+                        </Link>
+                        <Link 
                            href="/" 
                            className="w-10 h-10 bg-primary-baseColor1/10 hover:bg-primary-emeraldTeal transition-all duration-300 rounded-full flex items-center justify-center group"
                         >
                            <Linkedin className="w-5 h-5 text-primary-baseColor1 group-hover:text-white" />
-                        </a>
+                        </Link>
                      </div>
                   </div>
 
@@ -73,44 +74,44 @@ export default function Footer() {
                   <h4 className="text-lg font-semibold text-primary-baseColor1 mb-6">Quick Links</h4>
                   <ul className="space-y-3">
                      <li>
-                        <a 
+                        <Link 
                         href="/" 
                         className="text-primary-baseColor1/80 hover:text-primary-emeraldTeal transition-colors duration-200 flex items-center group"
                         >
                         <span className="group-hover:translate-x-1 transition-transform duration-200">Student Results</span>
-                        </a>
+                        </Link>
                      </li>
                      <li>
-                        <a 
+                        <Link 
                         href="/" 
                         className="text-primary-baseColor1/80 hover:text-primary-emeraldTeal transition-colors duration-200 flex items-center group"
                         >
                         <span className="group-hover:translate-x-1 transition-transform duration-200">Timetables</span>
-                        </a>
+                        </Link>
                      </li>
                      <li>
-                        <a 
+                        <Link 
                         href="/" 
                         className="text-primary-baseColor1/80 hover:text-primary-emeraldTeal transition-colors duration-200 flex items-center group"
                         >
                         <span className="group-hover:translate-x-1 transition-transform duration-200">Announcements</span>
-                        </a>
+                        </Link>
                      </li>
                      <li>
-                        <a 
+                        <Link 
                         href="/" 
                         className="text-primary-baseColor1/80 hover:text-primary-emeraldTeal transition-colors duration-200 flex items-center group"
                         >
                         <span className="group-hover:translate-x-1 transition-transform duration-200">Events</span>
-                        </a>
+                        </Link>
                      </li>
                      <li>
-                        <a 
+                        <Link 
                         href="/" 
                         className="text-primary-baseColor1/80 hover:text-primary-emeraldTeal transition-colors duration-200 flex items-center group"
                         >
                         <span className="group-hover:translate-x-1 transition-transform duration-200">Support Center</span>
-                        </a>
+                        </Link>
                      </li>
                   </ul>
                   </div>
@@ -176,24 +177,24 @@ export default function Footer() {
 
                   {/* Footer Links */}
                   <div className="flex space-x-6">
-                     <a 
+                     <Link 
                         href="/" 
                         className="text-primary-baseColor1/70 hover:text-primary-emeraldTeal text-sm transition-colors duration-200"
                      >
                         Privacy Policy
-                     </a>
-                     <a 
+                     </Link>
+                     <Link 
                         href="/" 
                         className="text-primary-baseColor1/70 hover:text-primary-emeraldTeal text-sm transition-colors duration-200"
                      >
                         Terms of Service
-                     </a>
-                     <a 
+                     </Link>
+                     <Link 
                         href="/" 
                         className="text-primary-baseColor1/70 hover:text-primary-emeraldTeal text-sm transition-colors duration-200"
                      >
                         Accessibility
-                     </a>
+                     </Link>
                   </div>
                   </div>
                </div>

@@ -188,7 +188,7 @@ export async function updateEvent(
       };
     }
 
-    let updateData: any = {
+    const updateData: any = {
       title,
       description: description || null,
       date_time,
@@ -265,7 +265,7 @@ export async function deleteEvent(id: string): Promise<{ success: boolean; error
   try {
     const supabase = await createClient()
 
-    const { data: event, error: fetchError } = await supabase
+    const { error: fetchError } = await supabase
       .from('events')
       .select('title, image_urls')
       .eq('id', id)

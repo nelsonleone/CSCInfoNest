@@ -207,7 +207,7 @@ function AddEventForm ({
             }
 
             toast.success(mode === 'edit' ? 'Event updated successfully!' : 'Event created successfully!');
-            router.push("/dpt-admin");
+            router.push("/dpt-admin/events");
             
         } else {
             const errorMessage = response.error || 'An error occurred';

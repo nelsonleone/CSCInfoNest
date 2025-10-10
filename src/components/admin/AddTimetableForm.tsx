@@ -14,18 +14,14 @@ import {
   Eye,
   Calendar,
   BookOpen,
-  Clock,
   FileCheck,
   Trash2,
   Image as ImageIcon,
   Loader2,
-  ExternalLink,
   Layout,
   GraduationCap,
-  Users,
   FileSpreadsheet,
   Download,
-  ArrowLeft,
   Sparkles
 } from 'lucide-react';
 import type { Timetable, Semester, Level } from '@/types';

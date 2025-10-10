@@ -14,7 +14,6 @@ import {
   Eye,
   Calendar,
   BookOpen,
-  Hash,
   FileCheck,
   Trash2,
   Image as ImageIcon,
@@ -295,7 +294,7 @@ const AddResultForm: React.FC<AddResultFormProps> = ({
                         {...register('title')}
                         type="text"
                         placeholder="e.g., First Semester Examination Results 2023/2024"
-                        onChange={(e) => {
+                        onChange={() => {
                             clearSubmitMessage()
                             clearErrors('title')
                         }}
@@ -320,7 +319,7 @@ const AddResultForm: React.FC<AddResultFormProps> = ({
                         {...register('description')}
                         placeholder="Optional description about the result"
                         rows={4}
-                        onChange={(e) => {
+                        onChange={() => {
                             clearSubmitMessage()
                             clearErrors('description')
                         }}
@@ -346,7 +345,7 @@ const AddResultForm: React.FC<AddResultFormProps> = ({
                             {...register('academic_session')}
                             type="text"
                             placeholder="e.g., 2023/2024"
-                            onChange={(e) => {
+                            onChange={() => {
                                 clearSubmitMessage()
                                 clearErrors('academic_session')
                             }}
@@ -370,7 +369,7 @@ const AddResultForm: React.FC<AddResultFormProps> = ({
                         </label>
                         <select
                             {...register('semester')}
-                            onChange={(e) => {
+                            onChange={() => {
                                 clearSubmitMessage()
                                 clearErrors('semester')
                             }}
@@ -398,7 +397,7 @@ const AddResultForm: React.FC<AddResultFormProps> = ({
                         </label>
                         <select
                             {...register('level')}
-                            onChange={(e) => {
+                            onChange={() => {
                                 clearSubmitMessage()
                                 clearErrors('level')
                             }}

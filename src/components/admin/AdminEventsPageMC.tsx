@@ -199,7 +199,7 @@ export default function AdminEventsPage({ initialData, initialCount }: EventsVie
         toast.success('Event deleted successfully');
         
         loadEvents(currentPage);
-        } catch (error) {
+        } catch {
         toast.error('An error occurred while deleting the event');
         }
     };

@@ -12,7 +12,6 @@ import {
   File,
   Loader2,
   Trash2,
-  Building2,
   ClockIcon,
   BookOpenCheck
 } from 'lucide-react';

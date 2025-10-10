@@ -117,7 +117,7 @@ export type FetchCurrentSessionResultsResponse = {
   error?: string;
 }
 
-const CURRENT_SESSION = "2025-2026";
+const CURRENT_SESSION = "2024-2025";
 
 export async function fetchCurrentSessionResults(): Promise<FetchCurrentSessionResultsResponse> {
     try {

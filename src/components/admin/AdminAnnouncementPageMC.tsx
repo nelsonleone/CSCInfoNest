@@ -10,7 +10,6 @@ import {
     Users,
     Clock,
     Trash2,
-    Edit,
     Eye,
     EyeOff,
     Loader2,
@@ -258,7 +257,7 @@ export default function AdminAnnouncementsPage({ initialData, initialCount }: Ad
             
             toast.success('Announcement deleted successfully')
             loadAnnouncements(currentPage)
-        } catch (error) {
+        } catch {
             toast.error('An error occurred while deleting the announcement')
         }
     };
