@@ -56,7 +56,7 @@ function AdminDashboard({
     return (
         <div className="min-h-screen pt-28 bg-gradient-to-br from-gray-50 via-white to-gray-50">
         <div className="bg-white/80 backdrop-blur-xl border-b border-gray-200/60 sticky top-0 z-50">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="max-w-7xl mx-auto glob-px">
             <div className="py-6">
                 <div className="flex items-center flex-wrap gap-y-4 justify-between">
                 <div className="space-y-1">
@@ -110,7 +110,7 @@ function AdminDashboard({
             </div>
         </div>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+        <div className="max-w-7xl mx-auto glob-px py-8 space-y-8">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 <StatCard
                     title="Total Events"
@@ -138,13 +138,15 @@ function AdminDashboard({
                     subtitle={`${stats.publishedTimetables} published`}
                     trend="down"
                     href='/dpt-admin/timetables/'
-                />
+                    />
                 <StatCard
                     title="Announcement Posted"
                     value={stats.publishedAnnouncements.toLocaleString()}
                     icon={Eye}
+                    subtitle={`${stats.publishedAnnouncements} published`}
                     color="blue"
                     trend="up"
+                    href='/dpt-admin/announcements/'
                 />
             </div>
 
@@ -172,7 +174,7 @@ function AdminDashboard({
                         description="Share important notices"
                         icon={AlertCircle}
                         color="blue"
-                        onClick={() => router.push('/dpt-admin/announcement/create')}
+                        onClick={() => router.push('/dpt-admin/announcements/create')}
                         badge={stats.pendingApprovals > 0 ? String(stats.pendingApprovals) : undefined}
                     />
                     <QuickActionCard

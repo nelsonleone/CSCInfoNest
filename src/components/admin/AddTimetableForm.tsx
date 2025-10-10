@@ -254,7 +254,7 @@ export default function AddTimetableForm({
     return (
         <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50/20">
             <div className="bg-white/90 backdrop-blur-xl border-b border-gray-200/60 sticky top-0 z-50 shadow-sm">
-                <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="max-w-6xl mx-auto glob-px">
                 <div className="py-6">
                     <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-6">                        
@@ -279,7 +279,7 @@ export default function AddTimetableForm({
                 </div>
             </div>
 
-            <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div className="max-w-6xl mx-auto glob-px py-8">
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
                 {submitMessage && (
                     <div className={`p-4 rounded-2xl border-2 ${

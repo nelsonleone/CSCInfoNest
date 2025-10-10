@@ -1,9 +1,15 @@
+"use client"
+
 import ExamPeriodHighlight from "@/components/homepage/ExamPeriodHighlight";
 import FeaturedEvent from "@/components/homepage/FeaturedEvent";
 import { UbuntuFont } from "@/fonts";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
+
+  const router = useRouter()
+
   return (
     <main className="text-primary-baseColor1 min-h-screen">
       <div className="bg-primary-navyBlue glob-px mt-20 w-full flex justify-center items-center h-screen rounded-bl-[4em] md:rounded-bl-[8em] relative">
@@ -15,10 +21,10 @@ export default function Home() {
           <p className="mb-8">Access your results, check upcoming timetables, stay updated with the latest announcements, and never miss an event</p>
           
           <div className="flex flex-wrap justify-center gap-4">
-            <button className="bg-primary-emeraldTeal hover:bg-primary-emeraldTeal/80 text-primary-baseColor1 font-semibold px-6 py-3 rounded-lg transition-all duration-300 hover:shadow-lg hover:scale-105 flex-1 min-w-[200px] max-w-[280px]">
+            <button onClick={() => router.push("/events")} className="bg-primary-emeraldTeal hover:bg-primary-emeraldTeal/80 text-primary-baseColor1 font-semibold px-6 py-3 rounded-lg transition-all duration-300 hover:shadow-lg hover:scale-105 flex-1 min-w-[200px] max-w-[280px]">
               Ongoing Events
             </button>
-            <button className="bg-transparent border-2 border-primary-emeraldTeal text-primary-emeraldTeal hover:bg-emerald-600 hover:text-primary-baseColor1 font-semibold px-6 py-3 rounded-lg transition-all duration-300 hover:shadow-lg hover:scale-105 flex-1 min-w-[200px] max-w-[280px]">
+            <button onClick={() => router.push("/announcements")} className="bg-transparent border-2 border-primary-emeraldTeal text-primary-emeraldTeal hover:bg-emerald-600 hover:text-primary-baseColor1 font-semibold px-6 py-3 rounded-lg transition-all duration-300 hover:shadow-lg hover:scale-105 flex-1 min-w-[200px] max-w-[280px]">
               Announcements
             </button>
           </div>

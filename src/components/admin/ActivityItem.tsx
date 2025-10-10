@@ -45,9 +45,6 @@ export default function ActivityItem({ activity }: { activity: ActivityItemType 
                     )}
                 </div>
             </div>
-            <button className="opacity-0 group-hover:opacity-100 p-1 rounded-md hover:bg-gray-200 transition-all duration-200">
-                <MoreHorizontal className="w-4 h-4 text-gray-400" />
-            </button>
         </div>
     );
 }

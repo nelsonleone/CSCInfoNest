@@ -1,3 +1,5 @@
+"use client"
+
 import { useState } from 'react';
 import { 
     Megaphone, 
@@ -24,7 +26,7 @@ interface Announcement {
     is_published: boolean;
 }
 
-export default function StudentAnnouncementsPage({ data }: { data: Announcement[] }) {
+export default function PublicAnnouncementsPageMC({ data }: { data: Announcement[] }) {
     const [announcements] = useState<Announcement[]>(data)
     const [selectedPriority, setSelectedPriority] = useState<string>('all')
     const [searchTerm, setSearchTerm] = useState('')
@@ -40,7 +42,7 @@ export default function StudentAnnouncementsPage({ data }: { data: Announcement[
                     text: 'text-red-700',
                     icon: <AlertTriangle className="w-5 h-5" />,
                     label: 'Urgent'
-                };
+                }
             case 'medium':
                 return {
                     color: 'bg-amber-500',
@@ -49,7 +51,7 @@ export default function StudentAnnouncementsPage({ data }: { data: Announcement[
                     text: 'text-amber-700',
                     icon: <AlertCircle className="w-5 h-5" />,
                     label: 'Important'
-                };
+                }
             default:
                 return {
                     color: 'bg-blue-500',
@@ -58,9 +60,9 @@ export default function StudentAnnouncementsPage({ data }: { data: Announcement[
                     text: 'text-blue-700',
                     icon: <Info className="w-5 h-5" />,
                     label: 'General'
-                };
+                }
         }
-    };
+    }
 
     const formatDate = (dateString: string) => {
         const date = new Date(dateString)
@@ -80,7 +82,7 @@ export default function StudentAnnouncementsPage({ data }: { data: Announcement[
                 year: 'numeric' 
             })
         }
-    };
+    }
 
     const toggleExpanded = (id: string) => {
         const newExpanded = new Set(expandedIds)
@@ -90,7 +92,7 @@ export default function StudentAnnouncementsPage({ data }: { data: Announcement[
             newExpanded.add(id)
         }
         setExpandedIds(newExpanded)
-    };
+    }
 
     const filteredAnnouncements = announcements.filter(announcement => {
         const matchesPriority = selectedPriority === 'all' || announcement.priority === selectedPriority;
@@ -104,13 +106,12 @@ export default function StudentAnnouncementsPage({ data }: { data: Announcement[
         high: announcements.filter(a => a.priority === 'high').length,
         medium: announcements.filter(a => a.priority === 'medium').length,
         low: announcements.filter(a => a.priority === 'low').length
-    };
+    }
 
     return (
-        <div className="min-h-screen bg-[#F4F4F4]">
-            {/* Hero Header */}
+        <div className="min-h-screen bg-[#F4F4F4] pt-24">
             <div className="bg-gradient-to-r from-[#1A1A40] to-[#2a2a60] text-white">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+                <div className="max-w-7xl mx-auto glob-px py-12">
                     <div className="flex items-center justify-between">
                         <div className="flex items-center space-x-4">
                             <div className="w-16 h-16 bg-[#1ABC9C] rounded-2xl flex items-center justify-center shadow-lg">
@@ -123,7 +124,6 @@ export default function StudentAnnouncementsPage({ data }: { data: Announcement[
                         </div>
                     </div>
 
-                    {/* Priority Stats */}
                     <div className="grid grid-cols-3 gap-4 mt-8">
                         <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20">
                             <div className="flex items-center space-x-2 mb-2">
@@ -150,11 +150,9 @@ export default function StudentAnnouncementsPage({ data }: { data: Announcement[
                 </div>
             </div>
 
-            {/* Filters */}
             <div className="bg-white border-b border-gray-200 sticky top-0 z-40 shadow-sm">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+                <div className="max-w-7xl mx-auto glob-px py-4">
                     <div className="flex flex-col sm:flex-row gap-4">
-                        {/* Search */}
                         <div className="flex-1 relative">
                             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
                             <input
@@ -166,7 +164,6 @@ export default function StudentAnnouncementsPage({ data }: { data: Announcement[
                             />
                         </div>
 
-                        {/* Priority Filter */}
                         <div className="flex items-center space-x-2">
                             <Filter className="w-5 h-5 text-gray-400" />
                             <select
@@ -184,8 +181,7 @@ export default function StudentAnnouncementsPage({ data }: { data: Announcement[
                 </div>
             </div>
 
-            {/* Announcements List */}
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div className="max-w-7xl mx-auto glob-px py-8">
                 {filteredAnnouncements.length === 0 ? (
                     <div className="text-center py-16">
                         <Megaphone className="w-16 h-16 text-gray-300 mx-auto mb-4" />
@@ -210,7 +206,6 @@ export default function StudentAnnouncementsPage({ data }: { data: Announcement[
                                     className={`bg-white rounded-xl border-l-4 ${config.color.replace('bg-', 'border-')} shadow-sm hover:shadow-md transition-shadow overflow-hidden`}
                                 >
                                     <div className="p-6">
-                                        {/* Header */}
                                         <div className="flex items-start justify-between mb-4">
                                             <div className="flex items-start space-x-3 flex-1">
                                                 <div className={`${config.lightBg} ${config.text} p-2 rounded-lg`}>
@@ -235,7 +230,6 @@ export default function StudentAnnouncementsPage({ data }: { data: Announcement[
                                             </div>
                                         </div>
 
-                                        {/* Content */}
                                         <div className="mb-4">
                                             <p className="text-[#333333] leading-relaxed whitespace-pre-wrap">
                                                 {isExpanded ? announcement.content : contentPreview}
@@ -252,7 +246,6 @@ export default function StudentAnnouncementsPage({ data }: { data: Announcement[
                                             )}
                                         </div>
 
-                                        {/* Footer */}
                                         <div className="flex items-center justify-between pt-4 border-t border-gray-100">
                                             <div className="flex items-center space-x-4 text-sm text-gray-500">
                                                 <div className="flex items-center space-x-1">

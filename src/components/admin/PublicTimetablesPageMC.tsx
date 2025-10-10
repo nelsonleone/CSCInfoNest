@@ -236,7 +236,7 @@ export default function PublicTimetablesPageMC({ timetables }: PublicTimetablesP
     return (
         <div className="min-h-screen pt-28 bg-gradient-to-br from-blue-50 via-white to-yellow-50">
             <div className="bg-white/80 backdrop-blur-xl border-b border-blue-200/60">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+                <div className="max-w-7xl mx-auto glob-px py-8">
                     <div className="flex flex-col space-y-6 lg:flex-row lg:items-center lg:justify-between lg:space-y-0">
                         <div className="space-y-2">
                             <div className="flex items-center space-x-4">
@@ -258,7 +258,7 @@ export default function PublicTimetablesPageMC({ timetables }: PublicTimetablesP
             </div>
 
             {/* Content */}
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div className="max-w-7xl mx-auto glob-px py-8">
                 {hasAnyTimetables ? (
                     <div className="space-y-8">
                         {/* Stats Overview */}

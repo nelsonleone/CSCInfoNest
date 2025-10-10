@@ -20,7 +20,7 @@ export default function Footer() {
 
    return (
       !pathName.match("/auth") &&
-      <footer className="relative overflow-hidden mt-40 bg-gradient-to-br from-primary-navyBlue via-primary-navyBlue to-primary-charcoal">
+      <footer className={`relative overflow-hidden ${!pathName.startsWith("/dpt-admin") && "mt-40"} bg-gradient-to-br from-primary-navyBlue via-primary-navyBlue to-primary-charcoal`}>
          <div className="absolute inset-0 bg-[url('/images/bg-pattern-intro-mobile.svg')] bg-no-repeat bg-right-top opacity-5"></div>
          
          <div className="relative">

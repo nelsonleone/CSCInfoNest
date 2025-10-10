@@ -29,6 +29,7 @@ export async function fetchAnnouncementsAction(params: FetchAnnouncementsParams 
             .select('*', { count: 'exact' })
             .order('created_at', { ascending: false });
 
+
         if (params.priority) {
             query = query.eq('priority', params.priority);
         }
@@ -176,7 +177,7 @@ export async function createAnnouncement(announcementData: Omit<Announcement, 'i
             priority: announcementData.priority || 'medium',
             target_audience: announcementData.target_audience?.trim() || null,
             expires_at: announcementData.expires_at || null,
-            is_published: announcementData.is_published ?? false
+            is_published: announcementData.is_published ?? true
         }
 
         const { data, error } = await supabase

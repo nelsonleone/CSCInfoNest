@@ -42,7 +42,7 @@ export default function EventDetailsPage({ event }: { event: Event }) {
     <div className="min-h-screen bg-gray-50 pt-24">
       {/* Header */}
       <div className="bg-[#1A1A40] py-6">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto glob-px">
             <button 
                 onClick={() => router.back()}
                 className="flex items-center gap-2 text-[#1ABC9C] hover:text-white transition-colors mb-4"
@@ -59,7 +59,7 @@ export default function EventDetailsPage({ event }: { event: Event }) {
       </div>
 
       {/* Main Content */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="max-w-7xl mx-auto glob-px py-12">
         <div className="bg-white rounded-lg shadow-lg overflow-hidden">
           {/* Hero Image */}
           {event.image_urls && event.image_urls.length > 0 && (

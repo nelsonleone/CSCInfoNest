@@ -230,7 +230,7 @@ const AddResultForm: React.FC<AddResultFormProps> = ({
     return (
         <div className="min-h-screen pt-5 bg-gradient-to-br from-gray-50 via-white to-gray-50">
             <div className="bg-white/80 backdrop-blur-xl border-b border-gray-200/60 sticky top-0 z-50">
-                <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="max-w-4xl mx-auto glob-px">
                 <div className="py-6">
                     <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-4">
@@ -258,7 +258,7 @@ const AddResultForm: React.FC<AddResultFormProps> = ({
                 </div>
             </div>
 
-            <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div className="max-w-4xl mx-auto glob-px py-8">
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
                 {submitMessage && (
                     <div className={`p-4 rounded-xl border ${

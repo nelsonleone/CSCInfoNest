@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -32,7 +32,7 @@ const announcementSchema = z.object({
   target_audience: z.string().optional(),
   expires_at: z.string().optional(),
   is_published: z.boolean()
-});
+})
 
 type AnnouncementFormData = z.infer<typeof announcementSchema>;
 
@@ -49,9 +49,9 @@ const AddAnnouncementForm: React.FC<AddAnnouncementFormProps> = ({
   mode = 'create',
   announcementId
 }) => {
-  const [submitMessage, setSubmitMessage] = useState<{type: 'success' | 'error'; text: string} | null>(null);
-  const [showPreview, setShowPreview] = useState(false);
-  const router = useRouter();
+  const [submitMessage, setSubmitMessage] = useState<{type: 'success' | 'error'; text: string} | null>(null)
+  const [showPreview, setShowPreview] = useState(false)
+  const router = useRouter()
   
   const {
     register,
@@ -68,14 +68,14 @@ const AddAnnouncementForm: React.FC<AddAnnouncementFormProps> = ({
       priority: initialData?.priority || 'medium',
       target_audience: initialData?.target_audience || '',
       expires_at: initialData?.expires_at ? new Date(initialData.expires_at).toISOString().slice(0, 16) : '',
-      is_published: initialData?.is_published ?? false
+      is_published: initialData?.is_published ?? true
     }
-  });
+  })
 
-  const watchedData = watch();
+  const watchedData = watch()
 
   const clearSubmitMessage = () => {
-    setSubmitMessage(null);
+    setSubmitMessage(null)
   };
 
   const getPriorityColor = (priority: string) => {
@@ -105,7 +105,7 @@ const AddAnnouncementForm: React.FC<AddAnnouncementFormProps> = ({
   };
 
   const onSubmit: SubmitHandler<AnnouncementFormData> = async (data) => {
-    setSubmitMessage(null);
+    setSubmitMessage(null)
 
     try {
       const formattedData = {
@@ -120,74 +120,74 @@ const AddAnnouncementForm: React.FC<AddAnnouncementFormProps> = ({
       };
       
       if (mode === 'edit' && announcementId) {
-        response = await updateAnnouncement(announcementId, formattedData);
+        response = await updateAnnouncement(announcementId, formattedData)
       } else {
-        response = await createAnnouncement(formattedData);
+        response = await createAnnouncement(formattedData)
       }
 
       if (response.success) {
         setSubmitMessage({
           type: 'success',
           text: mode === 'edit' ? 'Announcement updated successfully!' : 'Announcement created successfully!'
-        });
+        })
         
         if (mode === 'create') {
-          reset();
+          reset()
         }
 
-        toast.success(mode === 'edit' ? 'Announcement updated!' : 'Announcement created!');
-        router.push("/dpt-admin/announcements");
+        toast.success(mode === 'edit' ? 'Announcement updated!' : 'Announcement created!')
+        router.push("/dpt-admin/announcements")
         
       } else {
         const errorMessage = response.error || 'An error occurred';
         setSubmitMessage({
           type: 'error',
           text: errorMessage
-        });
-        toast.error(errorMessage);
+        })
+        toast.error(errorMessage)
       }
     } catch (error) {
-      console.error('Submit error:', error);
+      console.error('Submit error:', error)
       const errorMessage = 'An unexpected error occurred';
       setSubmitMessage({
         type: 'error',
         text: errorMessage
-      });
-      toast.error(errorMessage);
+      })
+      toast.error(errorMessage)
     }
   };
 
   return (
-    <div className="min-h-screen pt-5 bg-[#F4F4F4]">
-      <div className="bg-white border-b border-gray-200 sticky top-0 z-50">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="py-6">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-4">
-                <div className="w-12 h-12 bg-[#1ABC9C] rounded-xl flex items-center justify-center shadow-md">
-                  <Megaphone className="w-6 h-6 text-white" />
+    <div className="h-full pt-5 bg-[#f4f4f4]">
+      <div className="bg-white border-b border-gray-200 top-0 z-50">
+        <div className="max-w-5xl mx-auto glob-px">
+          <div className="py-4 sm:py-6">
+            <div className="flex flex-wrap flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+              <div className="flex items-center space-x-3 sm:space-x-4 min-w-0">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[#1ABC9C] rounded-xl flex items-center justify-center shadow-md flex-shrink-0">
+                  <Megaphone className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
                 </div>
-                <div>
-                  <h1 className="text-3xl font-bold text-[#1A1A40]">
+                <div className="min-w-0">
+                  <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-[#1A1A40] truncate">
                     {mode === 'edit' ? 'Edit Announcement' : 'Create Announcement'}
                   </h1>
-                  <p className="text-[#333333] mt-1">Share important updates with students</p>
+                  <p className="text-[#333333] mt-1 text-sm sm:text-base hidden sm:block">Share important updates with students</p>
                 </div>
               </div>
               
-              <div className="flex items-center space-x-3">
+              <div className="flex items-center space-x-2 sm:space-x-3 flex-shrink-0">
                 <button
                   type="button"
                   onClick={() => setShowPreview(!showPreview)}
-                  className="px-4 py-2 text-[#333333] hover:text-[#1ABC9C] hover:bg-gray-50 rounded-lg transition-colors flex items-center space-x-2"
+                  className="px-3 py-2 sm:px-4 text-[#333333] hover:text-[#1ABC9C] hover:bg-gray-50 rounded-lg transition-colors flex items-center space-x-1 sm:space-x-2 text-sm sm:text-base"
                 >
                   {showPreview ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
-                  <span>{showPreview ? 'Hide' : 'Preview'}</span>
+                  <span className="">{showPreview ? 'Hide' : 'Preview'}</span>
                 </button>
                 {onCancel && (
                   <button
                     onClick={onCancel}
-                    className="px-4 py-2 text-[#333333] hover:text-gray-800 hover:bg-gray-100 rounded-lg transition-colors"
+                    className="px-3 py-2 sm:px-4 text-[#333333] hover:text-gray-800 hover:bg-gray-100 rounded-lg transition-colors text-sm sm:text-base"
                   >
                     Cancel
                   </button>
@@ -198,7 +198,7 @@ const AddAnnouncementForm: React.FC<AddAnnouncementFormProps> = ({
         </div>
       </div>
 
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="max-w-5xl mx-auto glob-px py-8">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2">
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
@@ -234,8 +234,8 @@ const AddAnnouncementForm: React.FC<AddAnnouncementFormProps> = ({
                       type="text"
                       placeholder="e.g., Important: Class Schedule Change"
                       onChange={() => {
-                        clearSubmitMessage();
-                        clearErrors('title');
+                        clearSubmitMessage()
+                        clearErrors('title')
                       }}
                       className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-[#1ABC9C] focus:border-[#1ABC9C] transition-colors ${
                         errors.title ? 'border-red-300' : 'border-gray-300'
@@ -258,8 +258,8 @@ const AddAnnouncementForm: React.FC<AddAnnouncementFormProps> = ({
                       placeholder="Write your announcement message here..."
                       rows={8}
                       onChange={() => {
-                        clearSubmitMessage();
-                        clearErrors('content');
+                        clearSubmitMessage()
+                        clearErrors('content')
                       }}
                       className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-[#1ABC9C] focus:border-[#1ABC9C] resize-none ${
                         errors.content ? 'border-red-300' : 'border-gray-300'
@@ -291,8 +291,8 @@ const AddAnnouncementForm: React.FC<AddAnnouncementFormProps> = ({
                     <select
                       {...register('priority')}
                       onChange={() => {
-                        clearSubmitMessage();
-                        clearErrors('priority');
+                        clearSubmitMessage()
+                        clearErrors('priority')
                       }}
                       className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1ABC9C] focus:border-[#1ABC9C]"
                     >
@@ -337,12 +337,12 @@ const AddAnnouncementForm: React.FC<AddAnnouncementFormProps> = ({
                 </div>
               </div>
 
-              <div className="flex items-center justify-end space-x-4">
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-end space-y-3 sm:space-y-0 sm:space-x-4">
                 {onCancel && (
                   <button
                     type="button"
                     onClick={onCancel}
-                    className="px-6 py-3 border border-gray-300 text-[#333333] rounded-lg hover:bg-gray-50 transition-colors"
+                    className="w-full sm:w-auto px-6 py-3 border border-gray-300 text-[#333333] rounded-lg hover:bg-gray-50 transition-colors"
                   >
                     Cancel
                   </button>
@@ -351,7 +351,7 @@ const AddAnnouncementForm: React.FC<AddAnnouncementFormProps> = ({
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="px-8 py-3 bg-[#1ABC9C] text-white rounded-lg hover:bg-[#16a085] transition-colors flex items-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full sm:w-auto px-8 py-3 bg-[#1ABC9C] text-white rounded-lg hover:bg-[#16a085] transition-colors flex items-center justify-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {isSubmitting ? (
                     <>
@@ -425,6 +425,6 @@ const AddAnnouncementForm: React.FC<AddAnnouncementFormProps> = ({
       </div>
     </div>
   )
-}
+};
 
 export default AddAnnouncementForm;
