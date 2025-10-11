@@ -79,7 +79,7 @@ export default function EventDetailsPage({ event }: { event: Event }) {
           {/* Content */}
           <div className="p-8 lg:p-12">
             {/* Title and Share */}
-            <div className="flex items-start justify-between gap-4 mb-6">
+            <div className="flex items-start flex-wrap justify-between gap-4 mb-6">
               <div className="flex-1">
                 {event.category && (
                   <span className="inline-block px-3 py-1 bg-[#1ABC9C] text-white text-sm font-medium rounded-full mb-4">
