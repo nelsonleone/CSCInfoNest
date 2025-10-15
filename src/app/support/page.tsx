@@ -146,7 +146,7 @@ export default function SupportPage() {
   ]
 
   return (
-    <div className="pt-24 bg-primary-navyBlue">
+    <div className="pt-24 pb-40 border-b bg-primary-navyBlue/95">
       {/* Header */}
       <div className="text-white py-16">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
