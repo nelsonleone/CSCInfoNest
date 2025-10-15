@@ -11,6 +11,8 @@ This is the Departmental Student Information Board Website developed for CIT306 
 - Desmond Wisdom Chidindu - 2020105702
 - Duru Valentine Chukwudi - 20221336625
 - Chukwukere ogochukwu Paul - 20221336765
+- Diala Chiemenam Hermanguild - 20232411872
+- Chukwuemeka Onyinyechi Mercy - 20221319305
 
 ## Website
 [https://csc-infonest-group5.vercel.app/](https://csc-infonest-group5.vercel.app/)
