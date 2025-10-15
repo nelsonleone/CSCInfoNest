@@ -1,36 +1,30 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# CSCInfoNest Project
 
-## Getting Started
+## Project Overview
+This is the Departmental Student Information Board Website developed for CIT306 - Web Design and Programming at the Federal University of Technology, Owerri.
 
-First, run the development server:
+## Group Members
+- Onuegbu Nelson Uchechukwu - 20221315555
+- Chimeziri Freedom Chiendu - 20221326475
+- Chiwueze Macvictor Chukwuebuka - 20221319925
+- Chukwu Victory Chikezirim - 20221306995
+- Desmond Wisdom Chidindu - 2020105702
+- Duru Valentine Chukwudi - 20221336625
+- Chukwukere ogochukwu Paul - 20221336765
+- Diala Chiemenam Hermanguild - 20232411872
+- Chukwuemeka Onyinyechi Mercy - 20221319305
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Website
+[https://csc-infonest-group5.vercel.app/](https://csc-infonest-group5.vercel.app/)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Technologies Used
+- **NextJs**: React Framework for building the frontend.
+- **TailwindCss**: For styling and responsive design.
+- **Redux**: For state management.
+- **Axios**: For handling API requests.
+- **Shadcn**: For reusable components.
+- **Supabase**: For authentication and Postgres database.
+- **NextJs Server Components**: For backend structure.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## More Details
+This project leverages modern web technologies to provide a seamless experience for students.
