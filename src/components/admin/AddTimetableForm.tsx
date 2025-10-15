@@ -275,7 +275,7 @@ export default function AddTimetableForm({
                 </div>
             </div>
 
-            <div className="max-w-6xl mx-auto glob-px py-8">
+            <div className="max-w-4xl mx-auto glob-px py-8">
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
                 {submitMessage && (
                     <div className={`p-4 rounded-2xl border-2 ${
@@ -298,7 +298,7 @@ export default function AddTimetableForm({
                     </div>
                 )}
 
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                     <div className="lg:col-span-2 space-y-8">
                     <div className="bg-white rounded-3xl shadow-lg border border-gray-100 overflow-hidden hover:shadow-xl transition-all duration-300">
                         <div className="px-8 py-6 border-b border-gray-100 bg-gradient-to-r from-gray-50 to-white">
@@ -654,7 +654,7 @@ export default function AddTimetableForm({
                     )}
                     </div>
 
-                    <div className="p-6 space-y-4">
+                    <div className="p-6 space-y-4 row-span-1 col-span-1">
                         <button
                             type="submit"
                             disabled={isSubmitting}

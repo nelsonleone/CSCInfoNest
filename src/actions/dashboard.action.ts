@@ -26,7 +26,7 @@ export const dashboardActions = {
                 publishedAnnouncements: announcementsData.data?.filter(item => item.is_published).length || 0,
                 publishedResults: resultsData.data?.filter(item => item.is_published).length || 0,
                 publishedTimetables: timetablesData.data?.filter(item => item.is_published).length || 0,
-                activeSession: '2025/2026',
+                activeSession: '2024/2025',
                 recentUploads: 0, // Will calculate below
                 totalViews: 0,
                 activeUsers: 1,
