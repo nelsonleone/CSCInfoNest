@@ -109,22 +109,22 @@ export default function PublicAnnouncementsPageMC({ data }: { data: Announcement
     }
 
     return (
-        <div className="min-h-screen bg-[#F4F4F4] pt-24">
+        <div className="min-h-screen bg-[#F4F4F4] pt-24 pb-40">
             <div className="bg-gradient-to-r from-[#1A1A40] to-[#2a2a60] text-white">
-                <div className="max-w-7xl mx-auto glob-px py-12">
-                    <div className="flex items-center justify-between">
-                        <div className="flex items-center space-x-4">
-                            <div className="w-16 h-16 bg-[#1ABC9C] rounded-2xl flex items-center justify-center shadow-lg">
-                                <Bell className="w-8 h-8 text-white" />
+                <div className="max-w-7xl mx-auto glob-px py-8 md:py-12">
+                    <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+                        <div className="flex items-center space-x-3 sm:space-x-4">
+                            <div className="w-12 h-12 sm:w-16 sm:h-16 bg-[#1ABC9C] rounded-2xl flex items-center justify-center shadow-lg flex-shrink-0">
+                                <Bell className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
                             </div>
                             <div>
-                                <h1 className="text-4xl font-bold mb-2">Announcements</h1>
-                                <p className="text-gray-300 text-lg">Stay updated with important notices and updates</p>
+                                <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-1 sm:mb-2">Announcements</h1>
+                                <p className="text-gray-300 text-sm sm:text-base md:text-lg">Stay updated with important notices and updates</p>
                             </div>
                         </div>
                     </div>
 
-                    <div className="grid grid-cols-3 gap-4 mt-8">
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 mt-6 sm:mt-8">
                         <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20">
                             <div className="flex items-center space-x-2 mb-2">
                                 <AlertTriangle className="w-5 h-5 text-red-400" />

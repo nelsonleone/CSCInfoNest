@@ -40,7 +40,7 @@ export default function EventDetailsPage({ event }: { event: Event }) {
   const router = useRouter()
 
   return (
-    <div className="min-h-screen bg-gray-50 pt-24">
+    <div className="min-h-screen bg-gray-50 pt-24 pb-40">
       {/* Header */}
       <div className="bg-[#1A1A40] py-6">
         <div className="max-w-7xl mx-auto glob-px">

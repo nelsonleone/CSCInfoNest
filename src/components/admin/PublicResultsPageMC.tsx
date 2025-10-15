@@ -147,7 +147,7 @@ function PublicResultsPageMC({
   }, 0)
 
   return (
-    <div className="min-h-screen pt-28 bg-gradient-to-br from-gray-50 via-white to-gray-50">
+    <div className="min-h-screen pt-28 pb-40 bg-gradient-to-br from-gray-50 via-white to-gray-50">
       <div className="bg-white/80 backdrop-blur-xl border-b border-gray-200/60 relative">
         <div className="max-w-6xl mx-auto glob-px py-6">
           <div className="flex flex-col space-y-4 lg:flex-row lg:items-center lg:justify-between lg:space-y-0">

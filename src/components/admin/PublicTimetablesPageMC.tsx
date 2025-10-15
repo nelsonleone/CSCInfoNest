@@ -60,7 +60,7 @@ function TimetableCard({
     }
 
     return (
-        <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-4 hover:shadow-md transition-all duration-200 hover:-translate-y-0.5">
+        <div className="bg-white rounded-xl pb-40 shadow-sm border border-gray-100 p-4 hover:shadow-md transition-all duration-200 hover:-translate-y-0.5">
             <div className="flex flex-col space-y-3">
                 <div className="flex items-start space-x-3">
                     <div className="p-2 bg-blue-50 rounded-lg">
