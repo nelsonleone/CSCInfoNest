@@ -135,7 +135,6 @@ export async function fetchCurrentSessionTimetables(): Promise<FetchCurrentSessi
         .order('type', { ascending: true })
         .order('semester', { ascending: true })
 
-        console.log("data",data)
 
         if (error) {
             console.error('Fetch current session timetables error:', error)
