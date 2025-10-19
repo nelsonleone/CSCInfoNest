@@ -18,7 +18,6 @@ export default function ExamPeriodHighlight() {
             return Math.max(0, days)
         }
 
-        // Update countdown daily
         const updateCountdown = () => {
             setDaysLeft(calculateDaysLeft())
         }
