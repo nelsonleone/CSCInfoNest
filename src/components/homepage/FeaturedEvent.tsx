@@ -132,13 +132,9 @@ export default function FeaturedEvent() {
 
                             {/* CTA Buttons */}
                             <div className="flex flex-col sm:flex-row gap-4 pt-4">
-                            <button className="bg-primary-emeraldTeal hover:bg-primary-emeraldTeal/90 text-white font-semibold px-8 py-4 rounded-xl transition-all duration-300 hover:shadow-lg hover:scale-105 flex items-center justify-center space-x-2 group">
-                                <span>Register Now</span>
-                                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                            </button>
-                            <button className="bg-transparent border-2 border-primary-navyBlue text-primary-navyBlue hover:bg-primary-navyBlue hover:text-white font-semibold px-8 py-4 rounded-xl transition-all duration-300 hover:shadow-lg">
-                                Learn More
-                            </button>
+                                <button className="bg-transparent border-2 border-primary-navyBlue text-primary-navyBlue hover:bg-primary-navyBlue hover:text-white font-semibold px-8 py-4 rounded-xl transition-all duration-300 hover:shadow-lg">
+                                    Learn More
+                                </button>
                             </div>
                         </div>
                         </div>
@@ -149,7 +145,7 @@ export default function FeaturedEvent() {
                     <div className="flex flex-col lg:flex-row items-center justify-between text-white">
                         <div className="text-center lg:text-left mb-4 lg:mb-0">
                         <h4 className="text-lg font-semibold mb-2">Don't miss out on this incredible opportunity!</h4>
-                        <p className="text-primary-baseColor1/80">Limited spots available. Early registration ends March 1st.</p>
+                        <p className="text-primary-baseColor1/80">Limited spots available. Early registration ends August 1st.</p>
                         </div>
                         <div className="flex items-center space-x-6">
                         <div className="text-center">
