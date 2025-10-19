@@ -143,7 +143,7 @@ export default function Footer() {
                         <div className="w-8 h-8 bg-primary-emeraldTeal/20 rounded-full flex items-center justify-center">
                         <Mail className="w-4 h-4 text-primary-emeraldTeal" />
                         </div>
-                        <p className="text-primary-baseColor1/80">info@department.edu.ng</p>
+                        <p className="text-primary-baseColor1/80">onelsonuchechukwu@gmail.com</p>
                      </div>
                      
                      <div className="flex items-start space-x-3">

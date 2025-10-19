@@ -82,7 +82,7 @@ export default function FeaturedEvent() {
                                     </div>
                                     <div>
                                         <p className="text-sm text-primary-charcoal/60">Date</p>
-                                        <p className="font-semibold">March 15-17, 2024</p>
+                                        <p className="font-semibold">October 15-17, 2025</p>
                                     </div>
                                 </div>
                                 
