@@ -1,6 +1,6 @@
 import { UbuntuFont } from "@/fonts";
 import Image from "next/image";
-import { Calendar, Clock, MapPin, Users, ArrowRight } from "lucide-react";
+import { Calendar, Clock, MapPin, Users } from "lucide-react";
 
 export default function FeaturedEvent() {
     return (
